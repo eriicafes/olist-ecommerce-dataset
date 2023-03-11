@@ -1,14 +1,9 @@
 const request = require("supertest")
 const { app } = require("../app")
-const { connectDb, closeDb } = require("../lib/db")
+const { db } = require("../lib/db")
 
-beforeAll(async () => {
-    await connectDb()
-})
-
-afterAll(async () => {
-    await closeDb()
-})
+beforeAll(db.connect)
+afterAll(db.close)
 
 const req = request(app)
 

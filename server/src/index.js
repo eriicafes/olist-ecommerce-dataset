@@ -1,9 +1,9 @@
 const { config } = require("./config")
 const { app } = require("./app")
-const { connectDb } = require("./lib/db")
+const { db } = require("./lib/db")
 
 async function start() {
-    await connectDb().then(() => [
+    await db.connect().then(() => [
         console.log("db connected succesfully")
     ])
 

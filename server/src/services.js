@@ -3,7 +3,7 @@ const { parsePaginationParams } = require("./utils")
 
 const sellers = {
     async getOne({ seller_id, seller_zip_code_prefix }) {
-        const result = await db.collection(collections.sellers).findOne({
+        const result = await db.instance().collection(collections.sellers).findOne({
             seller_id,
             seller_zip_code_prefix,
         })

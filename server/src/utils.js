@@ -9,7 +9,7 @@ function parsePaginationParams({ offset, limit, sort: sortField } = {}, { sortFi
     if (offset < 0) offset = 0
 
     // set limit range
-    // if (limit < 20) limit = 20
+    if (limit < 20) limit = 20
     if (limit > 100) limit = 100
 
     const skip = offset * limit
