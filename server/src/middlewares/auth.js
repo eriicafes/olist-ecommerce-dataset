@@ -1,5 +1,7 @@
+const services = require("../services")
+
 module.exports = {
-    authorize(req, res, next) {
+    async authorize(req, res, next) {
         // get authorixation header from request
         const authorization = req.headers.authorization ?? ""
         const base64Credentials = authorization.split(" ")[1]
@@ -23,11 +25,18 @@ module.exports = {
             })
         }
 
-        // populate req.user with credentials
-        req.user = {
-            seller_id: parts[0],
-            seller_zip_code_prefix: parts[1],
+        // verify credentials
+        const seller = await services.sellers.getOne({ seller_id: parts[0], seller_zip_code_prefix: parts[1] })
+
+        if (!seller) {
+            return res.status(401).send({
+                status: 401,
+                error: "Incorrect credentials",
+            })
         }
+
+        // populate req.user with credentials
+        req.user = seller
 
         next()
     }

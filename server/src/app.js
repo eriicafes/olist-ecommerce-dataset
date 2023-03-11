@@ -5,12 +5,17 @@ const app = express()
 
 app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.json({
-        ping: "pong",
+// mount routers
+app.use(router)
+
+// error fallback
+app.use((err, _req, res, _next) => {
+    console.log("application error:", err)
+
+    res.send({
+        status: 500,
+        error: "Something went wrong",
     })
 })
-
-app.use(router)
 
 module.exports = { app }
