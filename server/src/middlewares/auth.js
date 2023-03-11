@@ -26,9 +26,9 @@ module.exports = {
         }
 
         // verify credentials
-        const seller = await services.sellers.getOne({ seller_id: parts[0], seller_zip_code_prefix: parts[1] })
+        const seller = await services.sellers.getOne({ seller_id: parts[0] })
 
-        if (!seller) {
+        if (!seller || seller.seller_zip_code_prefix !== parts[1] ) {
             return res.status(401).send({
                 status: 401,
                 error: "Incorrect credentials",

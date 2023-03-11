@@ -20,10 +20,10 @@ const db = {
         if (process.env.NODE_ENV === "test") {
             const { MongoMemoryServer } = require("mongodb-memory-server")
             mongod = await MongoMemoryServer.create()
-    
+
             uri = mongod.getUri()
         }
-        
+
         client = new MongoClient(uri);
         dbInstance = client.db("olist-ecommerce-dataset")
 
@@ -34,6 +34,14 @@ const db = {
         if (mongod) await mongod.stop()
 
         return client.close()
+    },
+
+    async dropCollections() {
+        const collections = await db.instance().collections()
+
+        for (const collection of collections) {
+            await collection.deleteMany()
+        }
     }
 }
 
