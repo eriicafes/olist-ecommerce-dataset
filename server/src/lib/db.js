@@ -16,6 +16,11 @@ const db = {
   async connect () {
     let uri = config.MONGO_URI
 
+    // check for cached connection
+    if (client && dbInstance) {
+      return client
+    }
+
     // use in memory db uri in tests
     if (process.env.NODE_ENV === 'test') {
       const { MongoMemoryServer } = require('mongodb-memory-server')
