@@ -18,7 +18,7 @@ export default function Sellers() {
 
   const next = () => {
     if (!sellers.data) return
-    setOffset(Math.min(offset + 1, Math.ceil(sellers.data.total / limit) - 1))
+    setOffset(Math.max(0, Math.min(offset + 1, Math.ceil(sellers.data.total / limit) - 1)))
   }
 
   return (

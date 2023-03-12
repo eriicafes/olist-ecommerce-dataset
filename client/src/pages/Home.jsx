@@ -22,7 +22,7 @@ export default function Home() {
 
   const next = () => {
     if (!orderItems.data) return
-    setOffset(Math.min(offset + 1, Math.ceil(orderItems.data.total / limit) - 1))
+    setOffset(Math.max(0, Math.min(offset + 1, Math.ceil(orderItems.data.total / limit) - 1)))
   }
 
   return (
