@@ -1,16 +1,28 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { getOrderItems } from "../api"
+import { deleteOrderItem, getOrderItems } from "../api"
 import Layout from "../layouts/Layout"
 
 export default function Home() {
+  const queryClient = useQueryClient()
+
   const [expanded, setExpanded] = useState()
   const [offset, setOffset] = useState(0)
   const [limit] = useState(20)
   const [sort, setSort] = useState("")
 
   const orderItems = useQuery(["order_items", { offset, limit, sort }], () => getOrderItems({ offset, limit, sort }))
+
+  const handleDelete = (id) => {
+    deleteOrderItem({ id })
+      .then(() => {
+        queryClient.invalidateQueries(["order_items"])
+      })
+      .catch((err) => {
+        alert(err.response?.data.error)
+      })
+  }
 
   const start = (offset * limit) + 1
   const end = (offset + 1) * limit
@@ -77,7 +89,7 @@ export default function Home() {
 
               {expanded === i && (
                 <div className="mt-1 flex items-center justify-end gap-x-3">
-                  <button className="bg-red-100 text-red-400 rounded-md px-3 py-1 text-sm font-medium">Delete</button>
+                  <button onClick={() => handleDelete(orderItem.id)} className="bg-red-100 text-red-400 rounded-md px-3 py-1 text-sm font-medium">Delete</button>
                   <Link to={`/order_items/${orderItem.id}`}>
                     <button className="bg-blue-600 text-white rounded-md px-3 py-1 text-sm font-medium">Edit</button>
                   </Link>
