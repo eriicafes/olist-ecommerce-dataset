@@ -1,4 +1,5 @@
 const { app } = require("../../src/app");
+const { db } = require("../../src/lib/db");
 const serverless = require("serverless-http");
 
 const handler = serverless(app);
