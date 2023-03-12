@@ -26,7 +26,7 @@ app.use((_req, res, _next) => {
 app.use((err, _req, res, _next) => {
   console.log('application error:', err)
 
-  res.send({
+  res.status(500).send({
     status: 500,
     error: 'Something went wrong'
   })
