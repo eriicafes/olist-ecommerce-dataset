@@ -64,7 +64,8 @@ describe('get and modify account', () => {
       seller_state: newState
     })
 
-    expect(res.statusCode).toBe(204)
+    expect(res.statusCode).toBe(200)
+    expect(res.body.data).toStrictEqual({ seller_city: newCity, seller_state: newState })
   })
 
   test('GET /account get account after update', async () => {

@@ -21,7 +21,12 @@ router.put('/account', async (req, res, next) => {
       seller_state: req.body.seller_state
     })
 
-    res.status(204).send()
+    res.status(200).json({
+      data: {
+        seller_city: req.body.seller_city,
+        seller_state: req.body.seller_state
+      }
+    })
   } catch (err) {
     next(err)
   }
