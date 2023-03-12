@@ -1,10 +1,10 @@
-# Olits Ecommerce Dataset
+# Olist Ecommerce Dataset
 
-### This repository consists of an express server and a react js client application.
+### This repository consists of an express server and a react web app.
 
 ## Server
 
-The server is an nodejs server buitl with express. To run the server application:
+The server is an nodejs server built using express. To run the server application:
 
 ```bash
 cd server
@@ -17,6 +17,12 @@ MONGO_URI=#database connection string here
 ```
 
 The database connection defaults to `mongodb://localhost:27017/olist-ecommerce-dataset` if none is provided.
+
+Optionally provide a port to run server (the default is 5000).
+
+```bash
+PORT=# port here
+```
 
 Run application using the command below:
 
