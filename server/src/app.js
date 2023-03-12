@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const { accountRouter } = require('./routers/account')
 const { orderItemsRouter } = require('./routers/order-items')
 const { sellersRouter } = require('./routers/sellers')
@@ -6,6 +7,7 @@ const { sellersRouter } = require('./routers/sellers')
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 // mount routers
 app.use(sellersRouter)

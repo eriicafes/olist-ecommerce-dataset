@@ -18,10 +18,15 @@ router.put('/account', async (req, res, next) => {
     await services.sellers.updateOne({
       seller_id: req.user.seller_id,
       seller_city: req.body.seller_city,
-      seller_state: req.body.seller_state
+      seller_state: req.body.seller_state,
     })
 
-    res.status(204).send()
+    res.status(200).json({
+      data: {
+        seller_city: req.body.seller_city,
+        seller_state: req.body.seller_state,
+      }
+    })
   } catch (err) {
     next(err)
   }
